@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>Druckverlustberechnung</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand font-weight-bold" href="#">FLUID</a>
+      
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Druckverlust</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Dichte</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Zeta-Werte</a>
+              </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+
+      <div class="p-2" id="setup">
+    <form action="">
+        <div class="h3">Fluideigenschaften</div>
+        <div class="input-group mb-3 p-2">
+            <label for="flowrate">Volumenstrom</label>
+            <input class="form-control" id="flowrate" type="text">
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected>Einheit...</option>
+                <option value="m3/s">m3/s</option>
+                <option value="m3/h">m3/h</option>
+                <option value="L/min">L/min</option>
+                <option value="L/s">L/s</option>
+            </select>
+        
+            <label for="">Dichte</label>
+            <input class="form-control" type="text">
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected>Einheit...</option>
+                <option value="kg/m3">kg/m3</option>
+            </select>
+        </div>
+
+        <div class="h3">Rohrleitungssystem
+            <button type="button" class="btn btn-primary" @click="addNewFactorForm">+ Rohrleitung</button>
+            <button type="button" class="btn btn-success">+ Einbaute</button>
+        </div>
+        <label for="">Höhendifferenz</label>
+        <input class="form-control" type="text">
+        <select class="custom-select" id="inputGroupSelect01">
+            <option selected>...</option>
+            <option value="mm">m</option>
+        </select>
+    <div class="input-group mb-3 p-2">
+        <label for="pipe-diameter">Durchmesser</label>
+        <input class="form-control" id="pipe-diameter" type="text">
+        <select class="custom-select" id="">
+            <option selected>...</option>
+            <option value="m">m</option>
+            <option value="mm">mm</option>
+            <option value="cm">cm</option>
+            <option value="inch">inch</option>
+        </select>
+
+        <label for="">Länge</label>
+        <input type="text">
+        <select class="custom-select" id="inputGroupSelect01">
+            <option selected>...</option>
+            <option value="m">m</option>
+            <option value="mm">mm</option>
+            <option value="cm">cm</option>
+            <option value="inch">inch</option>
+        </select>
+
+        <label for="">Rohrrauigkeit</label>
+        <input type="text">
+        <select class="custom-select" id="inputGroupSelect01">
+            <option selected>...</option>
+            <option value="mm">mm</option>
+            <option value="µm">µm</option>
+        </select>
+    </div>
+        
+    <div class="h3">Einbauten</div>
+    <div class="input-group mb-3 p-2">
+        <label for="">Zeta</label>
+        <input type="text">
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6" v-for="(factor, index) in factors">
+          <div class="card-body" >
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">{{ index + 1 }}</span>
+              </div>
+              <input v-bind:name="'factor_' + index + '_name'" required type="text" class="form-control" placeholder="Name"
+              v-model="factor.name">
+              <input v-bind:name="'factor_' + index + '_low'" required type="text" class="form-control" placeholder="low" 
+                v-model="factor.level_low">
+              <input v-bind:name="'factor_' + index + '_center'" required type="text" class="form-control" placeholder="center" 
+                v-model="factor.level_center">
+              <input v-bind:name="'factor_' + index + '_high'" required type="text" class="form-control" placeholder="high" 
+              v-model="factor.level_high">
+              <input v-bind:name="'factor_' + index + '_unit'" required type="text" class="form-control" placeholder="Unit" 
+              v-model="factor.unit">
+              <input type="hidden" id="numFactors" name="numFactors" v-bind:value="index">
+              <div class="input-group-append">
+                <button class="btn btn-outline-danger" type="button" @click="deleteFactorForm(index)">
+                    &times
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+</body>
+</html>
