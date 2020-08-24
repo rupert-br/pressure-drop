@@ -40,101 +40,128 @@
       </nav>
 
       <div class="p-2" id="setup">
-    <form action="">
-        <div class="h3">Fluideigenschaften</div>
-        <div class="input-group mb-3 p-2">
-            <label for="flowrate">Volumenstrom</label>
-            <input class="form-control" id="flowrate" type="text">
-            <select class="custom-select" id="inputGroupSelect01">
-                <option selected>Einheit...</option>
-                <option value="m3/s">m3/s</option>
-                <option value="m3/h">m3/h</option>
-                <option value="L/min">L/min</option>
-                <option value="L/s">L/s</option>
-            </select>
-        
-            <label for="">Dichte</label>
-            <input class="form-control" type="text">
-            <select class="custom-select" id="inputGroupSelect01">
-                <option selected>Einheit...</option>
-                <option value="kg/m3">kg/m3</option>
-            </select>
-        </div>
+        <form action="">
+            <div class="container py-2">
+                <div class="h3">Eingabewerte</div>
+                <div class="input-group mb-3 p-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="flowrate">Volumenstrom</span>
+                    </div>
+                    <input class="form-control" id="flowrate" type="text">
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Einheit</option>
+                        <option value="m3/s">m3/s</option>
+                        <option value="m3/h">m3/h</option>
+                        <option value="L/min">L/min</option>
+                        <option value="L/s">L/s</option>
+                    </select>
+                </div>
 
-        <div class="h3">Rohrleitungssystem
-            <button type="button" class="btn btn-primary" @click="addNewFactorForm">+ Rohrleitung</button>
-            <button type="button" class="btn btn-success">+ Einbaute</button>
-        </div>
-        <label for="">Höhendifferenz</label>
-        <input class="form-control" type="text">
-        <select class="custom-select" id="inputGroupSelect01">
-            <option selected>...</option>
-            <option value="mm">m</option>
-        </select>
-    <div class="input-group mb-3 p-2">
-        <label for="pipe-diameter">Durchmesser</label>
-        <input class="form-control" id="pipe-diameter" type="text">
-        <select class="custom-select" id="">
-            <option selected>...</option>
-            <option value="m">m</option>
-            <option value="mm">mm</option>
-            <option value="cm">cm</option>
-            <option value="inch">inch</option>
-        </select>
+                <div class="input-group mb-3 p-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Dichte</span>
+                    </div>
+                    <input class="form-control" type="text">
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Einheit</option>
+                        <option value="kg/m3">kg/m3</option>
+                    </select>
+                </div>
 
-        <label for="">Länge</label>
-        <input type="text">
-        <select class="custom-select" id="inputGroupSelect01">
-            <option selected>...</option>
-            <option value="m">m</option>
-            <option value="mm">mm</option>
-            <option value="cm">cm</option>
-            <option value="inch">inch</option>
-        </select>
-
-        <label for="">Rohrrauigkeit</label>
-        <input type="text">
-        <select class="custom-select" id="inputGroupSelect01">
-            <option selected>...</option>
-            <option value="mm">mm</option>
-            <option value="µm">µm</option>
-        </select>
-    </div>
-        
-    <div class="h3">Einbauten</div>
-    <div class="input-group mb-3 p-2">
-        <label for="">Zeta</label>
-        <input type="text">
-    </div>
-
-    <div class="row">
-        <div class="col-lg-6" v-for="(factor, index) in factors">
-          <div class="card-body" >
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">{{ index + 1 }}</span>
-              </div>
-              <input v-bind:name="'factor_' + index + '_name'" required type="text" class="form-control" placeholder="Name"
-              v-model="factor.name">
-              <input v-bind:name="'factor_' + index + '_low'" required type="text" class="form-control" placeholder="low" 
-                v-model="factor.level_low">
-              <input v-bind:name="'factor_' + index + '_center'" required type="text" class="form-control" placeholder="center" 
-                v-model="factor.level_center">
-              <input v-bind:name="'factor_' + index + '_high'" required type="text" class="form-control" placeholder="high" 
-              v-model="factor.level_high">
-              <input v-bind:name="'factor_' + index + '_unit'" required type="text" class="form-control" placeholder="Unit" 
-              v-model="factor.unit">
-              <input type="hidden" id="numFactors" name="numFactors" v-bind:value="index">
-              <div class="input-group-append">
-                <button class="btn btn-outline-danger" type="button" @click="deleteFactorForm(index)">
-                    &times
-                </button>
-              </div>
+                <div class="input-group mb-3 p-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Höhendifferenz</span>
+                    </div>
+                    <input class="form-control" type="text">
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Einheit</option>
+                        <option value="m">m</option>
+                    </select>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </form>
+            
+
+            <div class="h3">Rohrleitungssystem
+                <button type="button" class="btn btn-primary" @click="addNewPipeForm">+ Rohrleitung</button>
+                <button type="button" class="btn btn-success" @click="addNewFittingForm">+ Einbauten</button>
+            </div>
+        
+            <div class="input-group mb-3 p-2">
+                <label for="pipe-diameter">Durchmesser</label>
+                <input class="form-control" id="pipe-diameter" type="text">
+                <select class="custom-select" id="">
+                    <option selected>...</option>
+                    <option value="m">m</option>
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="inch">inch</option>
+                </select>
+
+                <label for="">Länge</label>
+                <input type="text">
+                <select class="custom-select" id="inputGroupSelect01">
+                    <option selected>...</option>
+                    <option value="m">m</option>
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="inch">inch</option>
+                </select>
+
+                <label for="">Rohrrauigkeit</label>
+                <input type="text">
+                <select class="custom-select" id="inputGroupSelect01">
+                    <option selected>...</option>
+                    <option value="mm">mm</option>
+                    <option value="µm">µm</option>
+                </select>
+            </div> 
+            
+            <div class="h3">Rohrleitungen</div>
+            <div class="row">
+                <div class="" v-for="(pipe, index) in pipes">
+                <div class="card-body" >
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Abschnitt {{ index + 1 }}</span>
+                    </div>
+                    <input v-bind:name="'pipe_' + index + '_name'" required type="text" class="form-control" placeholder="Name"
+                    v-model="pipe.name">
+                    <input v-bind:name="'pipe_' + index + '_low'" required type="text" class="form-control" placeholder="low" 
+                        v-model="pipe.level_low">
+                    <input v-bind:name="'pipe' + index + '_center'" required type="text" class="form-control" placeholder="center" 
+                        v-model="pipe.level_center">
+                    <input type="hidden" id="numFactors" name="numFactors" v-bind:value="index">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-danger" type="button" @click="deletePipeForm(index)">
+                            &times
+                        </button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="h3">Einbauten</div>
+            <div class="row">
+                <div class="" v-for="(fitting, index) in fittings">
+                <div class="card-body" >
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Einbau {{ index + 1 }}</span>
+                    </div>
+                    <input v-bind:name="'pipe_' + index + '_name'" required type="text" class="form-control" placeholder="Name"
+                    v-model="fitting.name">
+                    <input v-bind:name="'pipe_' + index + '_low'" required type="text" class="form-control" placeholder="low" 
+                        v-model="fitting.level_low">
+                    <button class="btn btn-outline-danger" type="button" @click="deleteFittingForm(index)">
+                        &times
+                    </button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div> 
+        </form>
 </div>
 
 

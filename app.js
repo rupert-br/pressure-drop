@@ -1,50 +1,40 @@
 var app = new Vue({
   el:"#setup",
   data: {
-    scope: null,
-    design: null,
-    center_points: '',
-    list: {
-      'Parameter screening': [ { size:'full_fact', name:'Full-Factorial' }, { size:'frac_fact', name:'Fractional-Factorial' }, { size:'plackett_burman', name:'Plackett-Burman' } ],
-      'Optimization': [{size:'box_behnken', name:'Box-Behnken'}, {size:'central_composite', name:'Central Composite'}]
-    },
-    factors: [
+    pipes: [
       {
+        type: 'pipe',
         name: '',
         level_low: '',
-        level_center: '',
-        level_high: '',
-        unit: ''
+        level_center: ''
       }
     ],
-    responses: [
+    fittings: [
      {
-       name: '',
-       unit: ''
+       type: 'fitting',
+       zeta: ''
      } 
     ]
   },
   methods: {
-    addNewFactorForm () {
-      this.factors.push({
+    addNewPipeForm () {
+      this.pipes.push({
         name: '',
         level_low: '',
-        level_center: '',
-        level_high: '',
-        unit: ''
+        level_center: ''
       })
     },
-    deleteFactorForm (index) {
-      this.factors.splice(index, 1)
+    deletePipeForm (index) {
+      this.pipes.splice(index, 1)
     },
-    addNewResponseForm () {
-      this.responses.push({
+    addNewFittingForm () {
+      this.fittings.push({
         name: '',
         unit: ''
       })
     },
-    deleteResponseForm (index) {
-      this.responses.splice(index, 1)
+    deleteFittingForm (index) {
+      this.fittings.splice(index, 1)
     }
   }
 })
