@@ -42,7 +42,7 @@
       <div class="p-2" id="setup">
         <form action="">
             <div class="container-fluid py-2">
-                <div class="h3">Eingabewerte</div>
+                <div class="h3 border-bottom pb-2">Eingabewerte</div>
                 <div class="input-group mb-3 p-2">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="flowrate">Volumenstrom</span>
@@ -81,11 +81,12 @@
             </div>
             
             <div class="container-fluid py-2">
-                <div class="h3">Rohrleitungssystem
+                <div class="h3 border-bottom pb-2">Rohrleitungssystem
                     <button type="button" class="btn btn-primary" @click="addNewPipeForm">+ Rohrleitung</button>
                     <button type="button" class="btn btn-success" @click="addNewFittingForm">+ Einbauten</button>
                 </div>
 
+                <div class="h3">Rohrleitungen</div>
                 <div class="row">
                     <div class="" v-for="(pipe, index) in pipes">
                     <div class="card-body" >
