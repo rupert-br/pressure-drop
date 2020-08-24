@@ -4,9 +4,12 @@ var app = new Vue({
     pipes: [
       {
         type: 'pipe',
-        name: '',
-        level_low: '',
-        level_center: ''
+        length: '',
+        length_unit: 'Einheit',
+        diameter: '',
+        diameter_unit: 'Einheit',
+        roughness: '',
+        roughness_unit: 'Einheit'
       }
     ],
     fittings: [
@@ -19,9 +22,13 @@ var app = new Vue({
   methods: {
     addNewPipeForm () {
       this.pipes.push({
-        name: '',
-        level_low: '',
-        level_center: ''
+        type: 'pipe',
+        length: '',
+        length_unit: 'Einheit',
+        diameter: '',
+        diameter_unit: 'Einheit',
+        roughness: '',
+        roughness_unit: 'Einheit'
       })
     },
     deletePipeForm (index) {
