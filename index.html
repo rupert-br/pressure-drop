@@ -36,7 +36,7 @@
       </nav>
 
       <div class="p-2" id="setup">
-        <form action="" method="post">
+        <form action="">
             <div class="container py-2">
                 <div class="h3 border-bottom pb-1">Eingabewerte</div>
                 <div class="row pt-3">
@@ -101,7 +101,7 @@
 
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="h4 ">Rohrleitungen</div>
+                        <div class="h4">Rohrleitungen</div>
                         <div class="" v-for="(pipe, index) in pipes">
                             <div class="card-body" >
                                 <div class="input-group">
@@ -166,9 +166,11 @@
                     </div>
 
                 </div>
-                <button class="btn btn-danger" type="sumbit">
+                <button class="btn btn-danger" v-on:click="printPipes()">
                     Druckverlust berechnen
                 </button>
+
+                <p><pre>data: {{$data }}</pre></p>
             </div>
         </form>
 </div>

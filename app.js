@@ -44,6 +44,9 @@ var app = new Vue({
     },
     deleteFittingForm (index) {
       this.fittings.splice(index, 1)
+    },
+    printPipes () {
+      alert(this.pipes);
     }
   }
 })
