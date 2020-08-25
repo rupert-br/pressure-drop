@@ -14,7 +14,7 @@
     <title>Druckverlustberechnung</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,125 +37,134 @@
 
       <div class="p-2" id="setup">
         <form action="" method="post">
-            <div class="container-fluid py-2">
+            <div class="container py-2">
                 <div class="h3 border-bottom pb-1">Eingabewerte</div>
-                <div class="input-group mb-3 px-2 pt-2 mx-auto">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="flowrate">Volumenstrom</span>
+                <div class="row pt-3">
+                    <div class="col-lg-6">
+                        <div class="input-group mb-3 px-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="flowrate">Volumenstrom</span>
+                            </div>
+                            <input class="form-control" id="flowrate" type="text">
+                            <select class="custom-select" id="inputGroupSelect01">
+                                <option selected>Einheit</option>
+                                <option value="m3/s">m3/s</option>
+                                <option value="m3/h">m3/h</option>
+                                <option value="L/min">L/min</option>
+                                <option value="L/s">L/s</option>
+                            </select>
+                        </div>
+        
+                        <div class="input-group mb-3 px-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Höhendifferenz</span>
+                            </div>
+                            <input class="form-control" type="text">
+                            <select class="custom-select" id="inputGroupSelect01">
+                                <option selected>Einheit</option>
+                                <option value="m">m</option>
+                            </select>
+                        </div>
                     </div>
-                    <input class="form-control" id="flowrate" type="text">
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Einheit</option>
-                        <option value="m3/s">m3/s</option>
-                        <option value="m3/h">m3/h</option>
-                        <option value="L/min">L/min</option>
-                        <option value="L/s">L/s</option>
-                    </select>
-                </div>
 
-                <div class="input-group mb-3 px-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Dichte Fluid</span>
+                    <div class="col-lg-6">
+                        <div class="input-group mb-3 px-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Dichte Fluid</span>
+                            </div>
+                            <input class="form-control" type="text">
+                            <select class="custom-select" id="inputGroupSelect01">
+                                <option selected>Einheit</option>
+                                <option value="kg/m3">kg/m3</option>
+                            </select>
+                        </div>
+        
+                        <div class="input-group mb-3 px-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Dichte Atmosphäre</span>
+                            </div>
+                            <input class="form-control" type="text">
+                            <select class="custom-select" id="inputGroupSelect01">
+                                <option selected>Einheit</option>
+                                <option value="kg/m3">kg/m3</option>
+                            </select>
+                        </div>
                     </div>
-                    <input class="form-control" type="text">
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Einheit</option>
-                        <option value="kg/m3">kg/m3</option>
-                    </select>
-                </div>
-
-                <div class="input-group mb-3 px-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Dichte Atmosphäre</span>
-                    </div>
-                    <input class="form-control" type="text">
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Einheit</option>
-                        <option value="kg/m3">kg/m3</option>
-                    </select>
-                </div>
-
-                <div class="input-group mb-3 px-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Höhendifferenz</span>
-                    </div>
-                    <input class="form-control" type="text">
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Einheit</option>
-                        <option value="m">m</option>
-                    </select>
                 </div>
             </div>
             
-            <div class="container-fluid py-2">
+            <div class="container">
                 <div class="h3 border-bottom pb-2">Rohrleitungssystem
                     <button type="button" class="btn btn-primary" @click="addNewPipeForm">+ Rohrleitung</button>
                     <button type="button" class="btn btn-success" @click="addNewFittingForm">+ Einbauten</button>
                 </div>
 
-                <div class="h4 px-2">Rohrleitungen</div>
                 <div class="row">
-                    <div class="" v-for="(pipe, index) in pipes">
-                    <div class="card-body" >
-                        <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Abschnitt {{ index + 1 }}</span>
-                        </div>
-                        <input v-bind:name="'pipe_' + index + '_name'" required type="text" class="form-control" placeholder="Länge"
-                        v-model="pipe.length">
-                        <select v-model="pipe.length_unit" class="custom-select" id="inputGroupSelect01">
-                            <option disabled selected>Einheit</option>
-                            <option value="m">m</option>
-                            <option value="mm">mm</option>
-                            <option value="cm">cm</option>
-                            <option value="inch">inch</option>
-                        </select>
-                        <input v-bind:name="'pipe_' + index + '_low'" required type="text" class="form-control" placeholder="Durchmesser" 
-                            v-model="pipe.diameter">
-                        <select v-model="pipe.diameter_unit" class="custom-select" id="inputGroupSelect01">
-                            <option disabled selected>Einheit</option>
-                            <option value="m">m</option>
-                            <option value="mm">mm</option>
-                            <option value="cm">cm</option>
-                            <option value="inch">inch</option>
-                        </select>
-                        <input v-bind:name="'pipe_' + index + '_low'" required type="text" class="form-control" placeholder="Rohrrauigkeit" 
-                            v-model="pipe.roughness">
-                        <select v-model="pipe.roughness_unit" class="custom-select" id="inputGroupSelect01">
-                            <option disabled selected>Einheit</option>
-                            <option value="mm">mm</option>
-                        <option value="µm">µm</option>
-                        </select>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-danger" type="button" @click="deletePipeForm(index)">
-                                &times
-                            </button>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="h4 px-2">Einbauten</div>
-                <div class="row">
-                    <div class="" v-for="(fitting, index) in fittings">
-                        <div class="card-body" >
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Einbau {{ index + 1 }}</span>
-                                </div>
-                                <input v-bind:name="'pipe_' + index + '_name'" required type="text" class="form-control" placeholder="Name"
-                                v-model="fitting.name">
-                                <input v-bind:name="'pipe_' + index + '_low'" required type="text" class="form-control" placeholder="Zeta-Wert" 
-                                    v-model="fitting.zeta">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-danger" type="button" @click="deleteFittingForm(index)">
-                                        &times
-                                    </button>
+                    <div class="col-lg-6">
+                        <div class="h4 ">Rohrleitungen</div>
+                        <div class="" v-for="(pipe, index) in pipes">
+                            <div class="card-body" >
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Abschnitt {{ index + 1 }}</span>
+                                    </div>
+                                    <input v-bind:name="'pipe_' + index + '_name'" required type="text" class="form-control" placeholder="Länge"
+                                    v-model="pipe.length">
+                                    <select v-model="pipe.length_unit" class="custom-select" id="inputGroupSelect01">
+                                        <option disabled selected>Einheit</option>
+                                        <option value="m">m</option>
+                                        <option value="mm">mm</option>
+                                        <option value="cm">cm</option>
+                                        <option value="inch">inch</option>
+                                    </select>
+                                    <input v-bind:name="'pipe_' + index + '_low'" required type="text" class="form-control" placeholder="Durchmesser" 
+                                        v-model="pipe.diameter">
+                                    <select v-model="pipe.diameter_unit" class="custom-select" id="inputGroupSelect01">
+                                        <option disabled selected>Einheit</option>
+                                        <option value="m">m</option>
+                                        <option value="mm">mm</option>
+                                        <option value="cm">cm</option>
+                                        <option value="inch">inch</option>
+                                    </select>
+                                    <input v-bind:name="'pipe_' + index + '_low'" required type="text" class="form-control" placeholder="Rohrrauigkeit" 
+                                        v-model="pipe.roughness">
+                                    <select v-model="pipe.roughness_unit" class="custom-select" id="inputGroupSelect01">
+                                        <option disabled selected>Einheit</option>
+                                        <option value="mm">mm</option>
+                                        <option value="µm">µm</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-danger" type="button" @click="deletePipeForm(index)">
+                                            &times
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-lg-6">
+                        <div class="h4 ">Einbauten</div>
+                        <div class="" v-for="(fitting, index) in fittings">
+                            <div class="card-body" >
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Einbau {{ index + 1 }}</span>
+                                    </div>
+                                    <input v-bind:name="'pipe_' + index + '_name'" required type="text" class="form-control" placeholder="Name"
+                                    v-model="fitting.name">
+                                    <input v-bind:name="'pipe_' + index + '_low'" required type="text" class="form-control" placeholder="Zeta-Wert" 
+                                        v-model="fitting.zeta">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-danger" type="button" @click="deleteFittingForm(index)">
+                                            &times
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <button class="btn btn-danger" type="sumbit">
                     Druckverlust berechnen
