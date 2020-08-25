@@ -15,6 +15,7 @@ var app = new Vue({
     fittings: [
      {
        type: 'fitting',
+       name: '',
        zeta: ''
      } 
     ]
@@ -36,8 +37,9 @@ var app = new Vue({
     },
     addNewFittingForm () {
       this.fittings.push({
+        type: 'fitting',
         name: '',
-        unit: ''
+        zeta: ''
       })
     },
     deleteFittingForm (index) {

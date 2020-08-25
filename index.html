@@ -32,18 +32,14 @@
                 <a class="nav-link" href="#">Zeta-Werte</a>
               </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
         </div>
       </nav>
 
       <div class="p-2" id="setup">
-        <form action="">
+        <form action="" method="post">
             <div class="container-fluid py-2">
-                <div class="h3 border-bottom pb-2">Eingabewerte</div>
-                <div class="input-group mb-3 p-2">
+                <div class="h3 border-bottom pb-1">Eingabewerte</div>
+                <div class="input-group mb-3 px-2 pt-2 mx-auto">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="flowrate">Volumenstrom</span>
                     </div>
@@ -57,9 +53,9 @@
                     </select>
                 </div>
 
-                <div class="input-group mb-3 p-2">
+                <div class="input-group mb-3 px-2">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" >Dichte</span>
+                        <span class="input-group-text">Dichte Fluid</span>
                     </div>
                     <input class="form-control" type="text">
                     <select class="custom-select" id="inputGroupSelect01">
@@ -68,7 +64,18 @@
                     </select>
                 </div>
 
-                <div class="input-group mb-3 p-2">
+                <div class="input-group mb-3 px-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Dichte Atmosphäre</span>
+                    </div>
+                    <input class="form-control" type="text">
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Einheit</option>
+                        <option value="kg/m3">kg/m3</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3 px-2">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Höhendifferenz</span>
                     </div>
@@ -86,7 +93,7 @@
                     <button type="button" class="btn btn-success" @click="addNewFittingForm">+ Einbauten</button>
                 </div>
 
-                <div class="h3">Rohrleitungen</div>
+                <div class="h4 px-2">Rohrleitungen</div>
                 <div class="row">
                     <div class="" v-for="(pipe, index) in pipes">
                     <div class="card-body" >
@@ -129,27 +136,30 @@
                     </div>
                 </div>
 
-                <div class="h3">Einbauten</div>
+                <div class="h4 px-2">Einbauten</div>
                 <div class="row">
                     <div class="" v-for="(fitting, index) in fittings">
-                    <div class="card-body" >
-                        <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Einbau {{ index + 1 }}</span>
-                        </div>
-                        <input v-bind:name="'pipe_' + index + '_name'" required type="text" class="form-control" placeholder="Name"
-                        v-model="fitting.name">
-                        <input v-bind:name="'pipe_' + index + '_low'" required type="text" class="form-control" placeholder="low" 
-                            v-model="fitting.level_low">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-danger" type="button" @click="deleteFittingForm(index)">
-                                &times
-                            </button>
-                        </div>
+                        <div class="card-body" >
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Einbau {{ index + 1 }}</span>
+                                </div>
+                                <input v-bind:name="'pipe_' + index + '_name'" required type="text" class="form-control" placeholder="Name"
+                                v-model="fitting.name">
+                                <input v-bind:name="'pipe_' + index + '_low'" required type="text" class="form-control" placeholder="Zeta-Wert" 
+                                    v-model="fitting.zeta">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-danger" type="button" @click="deleteFittingForm(index)">
+                                        &times
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                </div> 
+                </div>
+                <button class="btn btn-danger" type="sumbit">
+                    Druckverlust berechnen
+                </button>
             </div>
         </form>
 </div>
