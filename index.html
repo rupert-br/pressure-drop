@@ -45,8 +45,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="flowrate">Volumenstrom</span>
                             </div>
-                            <input class="form-control" id="flowrate" type="text">
-                            <select class="custom-select" id="inputGroupSelect01">
+                            <input v-model="flow_rate" class="form-control" id="flowrate" type="text">
+                            <select v-model="flow_rate_unit" class="custom-select" id="inputGroupSelect01">
                                 <option selected>Einheit</option>
                                 <option value="m3/s">m3/s</option>
                                 <option value="m3/h">m3/h</option>
@@ -59,8 +59,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Höhendifferenz</span>
                             </div>
-                            <input class="form-control" type="text">
-                            <select class="custom-select" id="inputGroupSelect01">
+                            <input v-model="height_difference" class="form-control" type="text">
+                            <select v-model="height_difference_unit" class="custom-select" id="inputGroupSelect01">
                                 <option selected>Einheit</option>
                                 <option value="m">m</option>
                             </select>
@@ -72,8 +72,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Dichte Fluid</span>
                             </div>
-                            <input class="form-control" type="text">
-                            <select class="custom-select" id="inputGroupSelect01">
+                            <input v-model="density_fluid" class="form-control" type="text">
+                            <select v-model="density_fluid_unit" class="custom-select" id="inputGroupSelect01">
                                 <option selected>Einheit</option>
                                 <option value="kg/m3">kg/m3</option>
                             </select>
@@ -83,8 +83,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Dichte Atmosphäre</span>
                             </div>
-                            <input class="form-control" type="text">
-                            <select class="custom-select" id="inputGroupSelect01">
+                            <input v-model="density_atm" class="form-control" type="text">
+                            <select v-model="density_atm_unit" class="custom-select" id="inputGroupSelect01">
                                 <option selected>Einheit</option>
                                 <option value="kg/m3">kg/m3</option>
                             </select>
@@ -94,53 +94,75 @@
             </div>
             
             <div class="container">
-                <div class="h3 border-bottom pb-2">Rohrleitungssystem
+                <div class="h3 border-bottom mb-2 pb-2">Rohrleitungssystem
                     <button type="button" class="btn btn-primary" @click="addNewPipeForm">+ Rohrleitung</button>
                     <button type="button" class="btn btn-success" @click="addNewFittingForm">+ Einbauten</button>
+                </div>
+
+                <div class="row mt-2 mb-2">
+                    <div class="col-6">
+                        <div class="" v-for="(pipe, index) in pipes">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Rohrleitung {{ index + 1 }}
+                                    <div class="btn btn-outline-danger btn-sm" @click="deletePipeForm(index)">&times</div>
+                                    </h5>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Länge</span>
+                                        </div>
+                                        <input type="text" v-model="pipe.pipe_length" class="form-control" placeholder="Rohrleitungslänge" aria-describedby="basic-addon1">
+                                        <select v-model="pipe.pipe_length_unit" class="custom-select" id="inputGroupSelect01">
+                                            <option disabled selected>Einheit</option>
+                                            <option value="m">m</option>
+                                            <option value="mm">mm</option>
+                                            <option value="cm">cm</option>
+                                            <option value="inch">inch</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Durchmesser</span>
+                                        </div>
+                                        <input type="number" v-model="pipe.diameter" class="form-control" placeholder="Durchmesser" aria-describedby="basic-addon1">
+                                        <select class="custom-select" v-model="pipe.diameter_unit" id="inputGroupSelect01">
+                                            <option disabled selected>Einheit</option>
+                                            <option value="m">m</option>
+                                            <option value="mm">mm</option>
+                                            <option value="cm">cm</option>
+                                            <option value="inch">inch</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group mb-1">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Rohrrauigkeit</span>
+                                        </div>
+                                        <input type="text" v-model="pipe.roughness" class="form-control" placeholder="Rohrrauigkeit" aria-describedby="basic-addon1">
+                                        <select v-model="pipe.roughness_unit"class="custom-select" id="inputGroupSelect01">
+                                            <option disabled selected>Einheit</option>
+                                            <option value="mm">mm</option>
+                                            <option value="µm">µm</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="h5">Results:</div>
+                                    <div>v = {{ calculateVelocity (pipe) }} m/s</div>
+                                    <div>Re = xyz -</div>
+                                    <div>∆p = xyz Pa</div>
+                                    <div>lambda = </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        
+                    </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="h4">Rohrleitungen</div>
-                        <div class="" v-for="(pipe, index) in pipes">
-                            <div class="card-body" >
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">Abschnitt {{ index + 1 }}</span>
-                                    </div>
-                                    <input v-bind:name="'pipe_' + index + '_name'" required type="text" class="form-control" placeholder="Länge"
-                                    v-model="pipe.length">
-                                    <select v-model="pipe.length_unit" class="custom-select" id="inputGroupSelect01">
-                                        <option disabled selected>Einheit</option>
-                                        <option value="m">m</option>
-                                        <option value="mm">mm</option>
-                                        <option value="cm">cm</option>
-                                        <option value="inch">inch</option>
-                                    </select>
-                                    <input v-bind:name="'pipe_' + index + '_low'" required type="text" class="form-control" placeholder="Durchmesser" 
-                                        v-model="pipe.diameter">
-                                    <select v-model="pipe.diameter_unit" class="custom-select" id="inputGroupSelect01">
-                                        <option disabled selected>Einheit</option>
-                                        <option value="m">m</option>
-                                        <option value="mm">mm</option>
-                                        <option value="cm">cm</option>
-                                        <option value="inch">inch</option>
-                                    </select>
-                                    <input v-bind:name="'pipe_' + index + '_low'" required type="text" class="form-control" placeholder="Rohrrauigkeit" 
-                                        v-model="pipe.roughness">
-                                    <select v-model="pipe.roughness_unit" class="custom-select" id="inputGroupSelect01">
-                                        <option disabled selected>Einheit</option>
-                                        <option value="mm">mm</option>
-                                        <option value="µm">µm</option>
-                                    </select>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-danger" type="button" @click="deletePipeForm(index)">
-                                            &times
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="col-lg-6">
