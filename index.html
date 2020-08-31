@@ -89,6 +89,17 @@
                                 <option value="kg/m3">kg/m3</option>
                             </select>
                         </div>
+
+                        <div class="input-group mb-3 px-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Viskosität Fluid</span>
+                            </div>
+                            <input v-model="viscosity_fluid" class="form-control" type="text">
+                            <select v-model="viscosity_fluid_unit" class="custom-select" id="inputGroupSelect01">
+                                <option selected>Einheit</option>
+                                <option value="Pa*s">Pa*s</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -147,9 +158,9 @@
 
                                     <div class="h5">Results:</div>
                                     <div>v = {{ calculateVelocity (pipe) }} m/s</div>
-                                    <div>Re = xyz -</div>
+                                    <div>Re = {{ calculateReynolds (pipe) }} -</div>
                                     <div>∆p = xyz Pa</div>
-                                    <div>lambda = </div>
+                                    <div>lambda = {{ calculateLambda (pipe) }}</div>
                                 </div>
                             </div>
                         </div>

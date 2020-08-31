@@ -9,6 +9,8 @@ var app = new Vue({
     density_atm_unit: '',
     height_difference: '',
     height_difference_unit: '',
+    viscosity_fluid: '',
+    viscosity_fluid_unit: '',
     pipes: [
       {
         type: 'pipe',
@@ -68,23 +70,30 @@ var app = new Vue({
       let velocity = flow_rate / area
 
       return velocity;
-    }
-  },
-  computed: {
-    velocity: function() {
-      let flow_rate = this.flow_rate;
-      let flow_rate_unit = this.flow_rate_unit;
+    },
+    calculateReynolds (pipe) {
+      let viscosity_fluid = this.viscosity_fluid;
+      let density_fluid = this.density_fluid
+      let velocity = this.calculateVelocity(pipe);
+      let diameter = lengthConverter(pipe.diameter, pipe.diameter_unit);
 
-      flow_rate = flowRateConverter(flow_rate, flow_rate_unit);
+      let reynolds = velocity * density_fluid * diameter / viscosity_fluid;
 
-      this.pipes.forEach(function(pipe) {
-        pipe_length = lengthConverter(pipe.pipe_length, pipe.pipe_length_unit);
-        console.log(pipe_length);
-        console.log(pipe.pipe_length);
-        console.log(pipe.pipe_length_unit);
-      });
+      return reynolds;
+    },
+    calculateLambda (pipe) {
+      let reynolds = this.calculateReynolds (pipe);
+      let lambda;
+      let roughness = pipe.roughness;
 
-      return flow_rate
+      
+      if (reynolds <= 2320) {
+        lambda = 64 / reynolds;
+        return lambda;
+      }
+      if (reynolds > 2320) {
+        return lambda;
+      }
     }
   }
 })
@@ -122,3 +131,5 @@ function flowRateConverter(valNum, unit) {
   }
   return valNum;
 }
+
+/* Iterate for lambda calculation */
